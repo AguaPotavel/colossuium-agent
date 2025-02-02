@@ -1,4 +1,4 @@
-import { settings } from "@elizaos/core";
+import { elizaLogger, settings } from "@elizaos/core";
 import readline from "readline";
 
 const rl = readline.createInterface({
@@ -19,6 +19,7 @@ async function handleUserInput(input, agentId) {
 
   try {
     const serverPort = parseInt(settings.SERVER_PORT || "3000");
+    elizaLogger.log(`Sending message to ${agentId} on port ${serverPort}`);
 
     const response = await fetch(
       `http://localhost:${serverPort}/${agentId}/message`,

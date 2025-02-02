@@ -3,7 +3,7 @@ import { Character, Clients, defaultCharacter, ModelProviderName } from "@elizao
 export const character: Character = {
   name: "Fumante",
   plugins: [],
-  clients: [Clients.DIRECT, Clients.DISCORD],
+  clients: [Clients.DIRECT],
   modelProvider: ModelProviderName.LLAMALOCAL,
   settings: {
     secrets: {},

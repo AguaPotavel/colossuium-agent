@@ -24,6 +24,8 @@ import {
 } from "./config/index.ts";
 import { initializeDatabase } from "./database/index.ts";
 
+import { round_result } from "./actions/round.ts";
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -61,7 +63,7 @@ export function createAgent(
       character.settings?.secrets?.WALLET_PUBLIC_KEY ? solanaPlugin : null,
     ].filter(Boolean),
     providers: [],
-    actions: [],
+    actions: [round_result],
     services: [],
     managers: [],
     cacheManager: cache,
