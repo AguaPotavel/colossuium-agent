@@ -11,7 +11,7 @@
     "stop:service:all": "pm2 stop all",
     "dev:judge": "pnpm start --characters='./characters/judge.character.json'",
     "dev:gladiator": "pnpm start --characters='./characters/gladiator.character.json'",
-    "dev:all": "pnpm start --characters='./characters/judge.character.json ./characters/gladiator.character.json'",
+    "dev:all": "pnpm start --characters='./characters/judge.character.json, ./characters/gladiator.character.json'",
     "test-post": "node --loader ts-node/esm src/test/post.ts"
   },
   "dependencies": {
