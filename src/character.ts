@@ -4,7 +4,7 @@ export const character: Character = {
   name: "Fumante",
   plugins: [],
   clients: [Clients.DIRECT],
-  modelProvider: ModelProviderName.LLAMALOCAL,
+  modelProvider: ModelProviderName.ATOMA,
   settings: {
     secrets: {},
     voice: {
