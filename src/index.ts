@@ -24,7 +24,8 @@ import {
 } from "./config/index.ts";
 import { initializeDatabase } from "./database/index.ts";
 
-import { round_result } from "./actions/round.ts";
+import { judge_validate_action } from "./actions/judge_actions.ts";
+import { gladiator_attack } from "./actions/gladiator_action.ts";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -51,6 +52,18 @@ export function createAgent(
 
   nodePlugin ??= createNodePlugin();
 
+  function getActionsByAgent(character: Character){
+    if(character.name === 'Judge'){
+      return [judge_validate_action]
+    }
+
+    if(character.name === 'Gladiator'){
+      return [gladiator_attack]
+    }
+
+    return []
+  }
+
   return new AgentRuntime({
     databaseAdapter: db,
     token,
@@ -63,7 +76,7 @@ export function createAgent(
       character.settings?.secrets?.WALLET_PUBLIC_KEY ? solanaPlugin : null,
     ].filter(Boolean),
     providers: [],
-    actions: [round_result],
+    actions: [getActionsByAgent(character)].flat(),
     services: [],
     managers: [],
     cacheManager: cache,

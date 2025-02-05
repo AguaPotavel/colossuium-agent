@@ -1,6 +1,6 @@
 import { Action, IAgentRuntime, Memory, Content, generateObject, elizaLogger, State, composeContext, ModelClass, HandlerCallback } from "@elizaos/core";
 import { z } from "zod";
-import { example, example2, example3, example4, example5 } from "./examples.ts";
+import { example, example2, example3, example4, example5 } from "./examples/judge_examples.ts";
 
 const responseTemplate = `
 Analyze the combatants' CURRENT CONDITION to determine:
@@ -45,11 +45,10 @@ Given the recent messages, extract the following information about the requested
 with this current data and their stats and planned actions, define a result action and define their new STATS BASED ON NARRATIVE RESULT
 
 Respond with a JSON markdown block containing only the extracted values.
-
 `
 
 
-const round_result: Action = {
+const judge_validate_action: Action = {
   name: "VALIDATE_ROUND",
   similes: ["GET_ROUND_RESULT", "ROUND_RESULT", "ROUND"],
   description: "Judge will valuate the round result",
@@ -94,8 +93,6 @@ const round_result: Action = {
       narrative: z.string()
     })
 
-    console.log(message.content)
-
     if (!state) {
       // Initialize or update state
       state = (await runtime.composeState(message)) as State;
@@ -134,4 +131,4 @@ const round_result: Action = {
   ]
 };
 
-export { round_result };
+export { judge_validate_action };
