@@ -11,17 +11,19 @@ const example = [
                     stamina: 100,
                     strength: 100,
                     agility: 100,
-                    speed: 100,
+                    defense: 100,
                     sneaking:100,
-                    integrity: 100
+                    dexterity: 100
+                    wisdom: 80,
                 },
-                "name": "Maximus"
-                "status_effects": [],
+                name: "Maximus"
+                status_effects: [],
              },
-             "environment": {
-               "hazards_active": [],
-               "crowd_mood": "frenzied"
+             environment: {
+               hazards_active: [],
+               crowd_mood: "frenzied"
              },
+             last_action: null,
              fighter2: {
                 text: "I feint left to draw his guard, then aim a shield bash to his ribs to create an opening. With his balance compromised, I thrust my gladius toward his exposed thigh, hoping to cripple his movement and end the fight swiftly."
                 stats: {
@@ -29,12 +31,13 @@ const example = [
                     stamina: 100,
                     strength: 100,
                     agility: 100,
-                    speed: 100,
+                    defense: 100,
                     sneaking:100,
-                    integrity: 100
+                    dexterity: 100
+                    wisdom: 80,
                 },
-                "status_effects": [],
-                "name": "Spartacus"
+                status_effects: [],
+                name: "Spartacus"
              }`
     },
   },
@@ -43,39 +46,43 @@ const example = [
     content: {
       text:
         `
-          {
-            "fighter1": {
-                stats: {
-                health: 100,
-                stamina: 80,
-                strength: 100,
-                agility: 100,
-                speed: 100,
-                sneaking:100,
-                integrity: 100,
-              },
-              name: "Spartacus",
-              "status_effects": [],
-            },
-            "environment": {
-              "hazards_active": [],
-              "crowd_mood": "frenzied"
-            },
-            "fighter2": {
-                stats: {
-                health: 80,
-                stamina: 90,
-                strength: 100,
-                agility: 100,
-                speed: 100,
-                sneaking:100,
-                integrity: 100,
-              },
-              "status_effects": ["bleeding"],
-              name: "Maximus"
-            },
-            narrative: "Spartacus charges forward, his blade gleaming under the arena’s harsh light, aiming a swift strike at Maximus’s left flank. Maximus sidesteps, but Spartacus’s move is a ruse. With a powerful spin, Spartacus swings his shield like a battering ram, crashing it into Maximus’s right side, sending him stumbling. Seizing the moment, Spartacus thrusts his sword toward Maximus’s exposed shoulder, the steel singing through the air as he seeks to claim victory in a blaze of glory. The crowd roars, their voices shaking the very ground beneath them."
-            }
+        {
+          "fighter1": {
+        "stats": {
+          "health": 85,
+          "stamina": 90,
+          "strength": 100,
+          "agility": 100,
+          "defense": 100,
+          "sneaking": 100,
+          "dexterity": 100,
+          "wisdom": 80
+        },
+        "name": "Maximus",
+        "status_effects": [],
+        "intended_action": "Feint left, shield slam to disrupt balance, then attack exposed thigh and shoulder."
+      },
+      "fighter2": {
+        "stats": {
+          "health": 80,
+          "stamina": 85,
+          "strength": 100,
+          "agility": 100,
+          "defense": 100,
+          "sneaking": 100,
+          "dexterity": 100,
+          "wisdom": 80
+        },
+        "name": "Spartacus",
+        "status_effects": [],
+        "intended_action": "Feint left, shield bash to ribs, then thrust gladius into exposed thigh."
+      },
+      "environment": {
+        "hazards_active": [],
+        "crowd_mood": "frenzied"
+      },
+      "narrative": "Maximus feints left, slamming his shield into Spartacus's side, disrupting his balance. As Spartacus stumbles, Maximus drives his gladius into Spartacus's thigh, causing significant damage. Spartacus attempts a counter with a shield bash but misses due to his compromised stance. Maximus finishes with a diagonal slash to Spartacus's shoulder, leaving him severely wounded."
+    }
            `,
       action: "VALIDATE_ROUND",
     },
@@ -87,37 +94,40 @@ const example2 = [
     user: "{{user1}}",
     content: {
       text: `{
-        "fighter1": {
-          "text": "I feint high with my spear, then drop low to sweep your legs with my chain. When you fall, I'll pin you with the spear's haft.",
-          "stats": {
-            "health": 100,
-            "stamina": 90,
-            "strength": 85,
-            "agility": 110,
-            "speed": 105,
-            "sneaking": 75,
-            "integrity": 95
+        fighter1: {
+          text: "I feint high with my spear, then drop low to sweep your legs with my chain. When you fall, I'll pin you with the spear's haft.",
+          stats: {
+            health: 100,
+            stamina: 90,
+            strength: 85,
+            agility: 110,
+            defense: 105,
+            sneaking: 75,
+            dexterity: 95
+            wisdom: 80,
           },
-          "name": "Viper",
-          "status_effects": []
+          name: "Viper",
+          status_effects: []
         },
-        "fighter2": {
-          "text": "I'll catch your chain mid-swing, yank you off balance, and counter with an elbow strike to your temple.",
-          "stats": {
-            "health": 100,
-            "stamina": 95,
-            "strength": 110,
-            "agility": 90,
-            "speed": 85,
-            "sneaking": 60,
-            "integrity": 100
+        last_action: null,
+        fighter2: {
+          text: "I'll catch your chain mid-swing, yank you off balance, and counter with an elbow strike to your temple.",
+          stats: {
+            health: 100,
+            stamina: 95,
+            strength: 110,
+            agility: 90,
+            defense: 85,
+            sneaking: 60,
+            dexterity: 100
+            wisdom: 60,
           },
-          "name": "Titan",
-          "status_effects": []
+          name: "Titan",
+          status_effects: []
         },
-        "environment": {
-          "hazards_active": ["loose_sand"],
-          "crowd_mood": "anticipatory"
+        environment: {
+          hazards_active: ["loose_sand"],
+          crowd_mood: "anticipatory"
         }
       }`
     }
@@ -126,39 +136,42 @@ const example2 = [
     user: "{{user2}}",
     content: {
       text: `{
-        "fighter1": {
-          "stats": {
-            "health": 85,
-            "stamina": 75,
-            "strength": 85,
-            "agility": 105,
-            "speed": 100,
-            "sneaking": 70,
-            "integrity": 90
-          },
-          "name": "Viper",
-          "status_effects": ["disoriented"]
-        },
-        "fighter2": {
-          "stats": {
-            "health": 95,
-            "stamina": 80,
-            "strength": 105,
-            "agility": 85,
-            "speed": 80,
-            "sneaking": 55,
-            "integrity": 95
-          },
-          "name": "Titan",
-          "status_effects": ["grappled"]
-        },
-        "environment": {
-          "hazards_active": ["loose_sand", "broken_chain"],
-          "crowd_mood": "roaring"
-        },
-        "narrative": "Viper's chain wraps around Titan's arm, but the giant uses his raw strength to swing Viper into the sand. As Viper tumbles, Titan's follow-up strike glances off her shoulder guard. They end in a clinch, Viper's spear pressed against Titan's throat while his fist grips her armor seams."
-        }
-      }`,
+  "fighter1": {
+    "stats": {
+      "health": 90,
+      "stamina": 80,
+      "strength": 85,
+      "agility": 110,
+      "defense": 105,
+      "sneaking": 75,
+      "dexterity": 95,
+      "wisdom": 80
+    },
+    "name": "Viper",
+    "status_effects": ["exhaustion"],
+    "intended_action": "Feint high with spear, sweep legs with chain, then pin with spear haft."
+  },
+  "fighter2": {
+    "stats": {
+      "health": 95,
+      "stamina": 85,
+      "strength": 110,
+      "agility": 90,
+      "defense": 85,
+      "sneaking": 60,
+      "dexterity": 100,
+      "wisdom": 60
+    },
+    "name": "Titan",
+    "status_effects": ["disoriented"],
+    "intended_action": "Catch chain mid-swing, yank Viper off balance, counter with elbow strike to temple."
+  },
+  "environment": {
+    "hazards_active": ["loose_sand"],
+    "crowd_mood": "excited"
+  },
+  "narrative": "Viper feints high with his spear, then sweeps low with his chain. Titan attempts to catch the chain but slips on the loose sand, missing his counter. Viper capitalizes, pinning Titan with the spear haft. Titan, disoriented, struggles to regain footing, while Viper's agility gives him the upper hand, though he begins to tire."
+}`,
       action: "VALIDATE_ROUND"
     }
   }
@@ -172,24 +185,41 @@ const example3 = [
     user: "{{user1}}",
     content: {
       text: `{
-        "fighter1": {
-          "stats": {
-            "health": 100,
-            "stamina": 95,
-            "strength": 90,
-            "agility": 100,
-            "speed": 110,
+        fighter1: {
+          text: "I feint high with my spear, then drop low to sweep your legs with my chain. When you fall, I'll pin you with the spear's haft.",
+          stats: {
+            "health": 90,
+            "stamina": 80,
+            "strength": 85,
+            "agility": 110,
+            "defense": 105,
+            "sneaking": 75,
+            "dexterity": 95,
+            "wisdom": 80
+          },
+          name: "Viper",
+          "status_effects": ["exhaustion"],
+        },
+        fighter2: {
+          text: "I'll catch your chain mid-swing, yank you off balance, and counter with an elbow strike to your temple.",
+          stats: {
+            "health": 95,
+            "stamina": 85,
+            "strength": 110,
+            "agility": 90,
+            "defense": 85,
             "sneaking": 60,
-            "integrity": 120
+            "dexterity": 100,
+            "wisdom": 60
           },
-          "name": "Lord Kestrel",
-          "status_effects": ["inspired"],
-          "environment": {
-            "hazards_active": ["oiled_floor"],
-            "crowd_mood": "respectful"
-          },
-          "narrative": "The ceremonial gong echoes. Kestrel's ornate armor gleams as he salutes the imperial box, his movements precise on the treacherously polished stones."
-        }
+          name: "Titan",
+          "status_effects": ["disoriented"],
+        },
+        environment: {
+          hazards_active: ["loose_sand"],
+          crowd_mood: "anticipatory"
+        },
+        last_action: "Viper feints high with his spear, then sweeps low with his chain. Titan attempts to catch the chain but slips on the loose sand, missing his counter. Viper capitalizes, pinning Titan with the spear haft. Titan, disoriented, struggles to regain footing, while Viper's agility gives him the upper hand, though he begins to tire."
       }`
     }
   },
@@ -199,36 +229,40 @@ const example3 = [
       text: `{
         "fighter1": {
           "stats": {
-            "health": 95,
-            "stamina": 80,
+            "health": 85,
+            "stamina": 70,
             "strength": 85,
-            "agility": 95,
-            "speed": 105,
-            "sneaking": 55,
-            "integrity": 115
+            "agility": 110,
+            "defense": 105,
+            "sneaking": 75,
+            "dexterity": 95,
+            "wisdom": 80
           },
-          "name": "Lord Kestrel",
-          "status_effects": ["disarmed"]
+          "name": "Viper",
+          "status_effects": ["exhaustion", "bleeding"],
+          "intended_action": "Feint high with spear, sweep legs with chain, then pin with spear haft."
         },
         "fighter2": {
           "stats": {
-            "health": 85,
-            "stamina": 70,
-            "strength": 105,
-            "agility": 80,
-            "speed": 90,
-            "sneaking": 75,
-            "integrity": 90
+            "health": 90,
+            "stamina": 75,
+            "strength": 110,
+            "agility": 90,
+            "defense": 85,
+            "sneaking": 60,
+            "dexterity": 100,
+            "wisdom": 60
           },
-          "name": "Baron Vex",
-          "status_effects": ["dishonored"]
+          "name": "Titan",
+          "status_effects": ["disoriented", "exhaustion"],
+          "intended_action": "Catch chain mid-swing, yank Viper off balance, counter with elbow strike to temple."
         },
         "environment": {
-          "hazards_active": ["oiled_floor", "scattered_weapons"],
-          "crowd_mood": "shocked"
+          "hazards_active": ["loose_sand"],
+          "crowd_mood": "frenzied"
         },
-        "narrative": "Vex's dirty trick - salt thrown at Kestrel's eyes - backfires as the crowd boos. Slipping on the oiled stones, Kestrel's sword skids away but he snatches a fallen dagger, its edge finding Vex's throat as the Baron trips over his own cloak."
-      }`,
+        "narrative": "Viper, despite exhaustion, executes his plan, sweeping Titan's legs with the chain. Titan, still disoriented, fails to counter effectively and is pinned by Viper's spear haft. Viper lands a shallow thrust to Titan's side, causing bleeding, but Titan's strength allows him to break free, landing a glancing elbow strike that leaves Viper bleeding. Both fighters are now visibly exhausted, but the crowd is frenzied by the intense exchange."
+}`      ,
       action: "VALIDATE_ROUND"
     }
   }
@@ -239,38 +273,41 @@ const example3 = [
     user: "{{user1}}",
     content: {
       text: `{
-        "fighter1": {
-          "text": "I'll use hit-and-run tactics: strike with throwing knives from a distance, then fade into the arena's smoke clouds.",
-          "stats": {
-            "health": 100,
-            "stamina": 100,
-            "strength": 75,
-            "agility": 120,
-            "speed": 115,
-            "sneaking": 110,
-            "integrity": 80
+        fighter1: {
+          text: "I'll use hit-and-run tactics: strike with throwing knives from a distance, then fade into the arena's smoke clouds.",
+          stats: {
+            health: 100,
+            stamina: 100,
+            strength: 75,
+            agility: 120,
+            defense: 115,
+            sneaking: 110,
+            dexterity: 80
+            wisdom: 10,
           },
-          "name": "Ghost",
-          "status_effects": []
+          name: "Ghost",
+          status_effects: []
         },
-        "fighter2": {
-          "text": "I'll advance steadily, using my tower shield to block projectiles while scattering caltrops to limit your mobility.",
-          "stats": {
-            "health": 100,
-            "stamina": 100,
-            "strength": 100,
-            "agility": 85,
-            "speed": 90,
-            "sneaking": 50,
-            "integrity": 100
+        fighter2: {
+          text: "I'll advance steadily, using my tower shield to block projectiles while scattering caltrops to limit your mobility.",
+          stats: {
+            health: 100,
+            stamina: 100,
+            strength: 100,
+            agility: 85,
+            defense: 90,
+            sneaking: 50,
+            dexterity: 100,
+            wisdom: 100,
           },
-          "name": "Bastion",
-          "status_effects": []
+          name: "Bastion",
+          status_effects: []
         },
-        "environment": {
-          "hazards_active": ["smoke_bombs"],
-          "crowd_mood": "curious"
-        }
+        environment: {
+          hazards_active: ["smoke_bombs"],
+          crowd_mood: "curious"
+        },
+        last_action: null
       }`
     }
   },
@@ -283,34 +320,35 @@ const example3 = [
             "health": 90,
             "stamina": 85,
             "strength": 75,
-            "agility": 115,
-            "speed": 110,
-            "sneaking": 105,
-            "integrity": 75
+            "agility": 120,
+            "defense": 115,
+            "sneaking": 110,
+            "dexterity": 80,
+            "wisdom": 10
           },
           "name": "Ghost",
-          "status_effects": ["caltrop_wound"]
+          "status_effects": ["bleeding"]
         },
         "fighter2": {
           "stats": {
-            "health": 80,
+            "health": 95,
             "stamina": 90,
-            "strength": 95,
-            "agility": 80,
-            "speed": 85,
-            "sneaking": 45,
-            "integrity": 95
+            "strength": 100,
+            "agility": 85,
+            "defense": 90,
+            "sneaking": 50,
+            "dexterity": 100,
+            "wisdom": 100
           },
           "name": "Bastion",
-          "status_effects": ["bleeding"]
+          "status_effects": ["exhaustion"]
         },
         "environment": {
-          "hazards_active": ["smoke_bombs", "caltrop_field"],
-          "crowd_mood": "entertained"
+          "hazards_active": ["smoke_bombs", "caltrops"],
+          "crowd_mood": "tense"
         },
-        narrative: "Ghost's knives find gaps in Bastion's armor, but steps on a caltrop during retreat. Bastion bleeds from three wounds but corners Ghost against the arena wall, shield raised for a crushing blow as smoke swirls around them."
-        }
-      }`,
+        "narrative": "Ghost darted through the smoke, throwing knives with precision. One struck Bastion's arm, causing bleeding, but the shield absorbed most of the impact. Bastion advanced, scattering caltrops that nicked Ghost's leg as they retreated, leaving a trail of blood. The crowd grew tense as both fighters showed signs of strain."
+}`      ,
       action: "VALIDATE_ROUND"
     }
   }
@@ -321,37 +359,39 @@ const example3 = [
     user: "{{user1}}",
     content: {
       text: `{
-        "fighter1": {
-          "text": "I'll charge with my lance, aiming for your mount's legs. When you fall, I'll finish with my mace.",
-          "stats": {
-            "health": 100,
-            "stamina": 95,
-            "strength": 110,
-            "agility": 80,
-            "speed": 105,
-            "sneaking": 40,
-            "integrity": 90
+        fighter1: {
+          text: "I'll charge with my lance, aiming for your mount's legs. When you fall, I'll finish with my mace.",
+          stats: {
+            health: 100,
+            stamina: 95,
+            strength: 110,
+            agility: 80,
+            defense: 105,
+            sneaking: 40,
+            dexterity: 90,
+            wisdom: 80,
           },
-          "name": "Sir Alden",
-          "status_effects": []
+          name: "Sir Alden",
+          status_effects: []
         },
-        "fighter2": {
-          "text": "I'll sidestep your charge and use my net to entangle your weapon arm, then drag you from the saddle.",
-          "stats": {
-            "health": 100,
-            "stamina": 100,
-            "strength": 95,
-            "agility": 105,
-            "speed": 110,
-            "sneaking": 70,
-            "integrity": 85
+        fighter2: {
+          text: "I'll sidestep your charge and use my net to entangle your weapon arm, then drag you from the saddle.",
+          stats: {
+            health: 100,
+            stamina: 100,
+            strength: 95,
+            agility: 105,
+            defense: 110,
+            sneaking: 70,
+            dexterity: 85,
+            wisdom: 90,
           },
-          "name": "Desert Wind",
-          "status_effects": []
+          name: "Desert Wind",
+          status_effects: []
         },
-        "environment": {
-          "hazards_active": ["uneven_terrain"],
-          "crowd_mood": "eager"
+        environment: {
+          hazards_active: ["uneven_terrain"],
+          crowd_mood: "eager"
         }
       }`
     }
@@ -360,35 +400,37 @@ const example3 = [
     user: "{{user2}}",
     content: {
       text: `{
-        "fighter1": {
-          "stats": {
-            "health": 75,
-            "stamina": 70,
-            "strength": 105,
-            "agility": 75,
-            "speed": 95,
-            "sneaking": 35,
-            "integrity": 85
+        fighter1: {
+          stats: {
+            health: 75,
+            stamina: 70,
+            strength: 105,
+            agility: 75,
+            defense: 95,
+            sneaking: 35,
+            dexterity: 85,
+            wisdom: 80,
           },
-          "name": "Sir Alden",
-          "status_effects": ["dismounted", "entangled"]
+          name: "Sir Alden",
+          status_effects: ["dismounted", "entangled"]
         },
-        "fighter2": {
-          "stats": {
-            "health": 90,
-            "stamina": 85,
-            "strength": 90,
-            "agility": 100,
-            "speed": 105,
-            "sneaking": 65,
-            "integrity": 80
+        fighter2: {
+          stats: {
+            health: 90,
+            stamina: 85,
+            strength: 90,
+            agility: 100,
+            defense: 105,
+            sneaking: 65,
+            dexterity: 80,
+            wisdom: 90,
           },
-          "name": "Desert Wind",
-          "status_effects": ["mounted_advantage"]
+          name: "Desert Wind",
+          status_effects: ["mounted_advantage"]
         },
-        "environment": {
-          "hazards_active": ["uneven_terrain", "spooked_horses"],
-          "crowd_mood": "ecstatic"
+        environment: {
+          hazards_active: ["uneven_terrain", "spooked_horses"],
+          crowd_mood: "ecstatic"
         },
         narrative:"Alden's lance tears through Desert Wind's cloak but misses the mount. The net wraps around Alden's arm, yanking him into the dust. Desert Wind circles with raised scimitar as Alden struggles with the tangled net, his warhorse stampeding dangerously close."
         }

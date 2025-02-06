@@ -43,7 +43,7 @@ const example = [
     content: {
       text:
         "I feint right, then pivot to slam my shield into his ribs, forcing him off-balance. As he stumbles, I thrust my gladius into his exposed side, aiming to cripple his movement.",
-      action: "VALIDATE_ROUND",
+      action: "GLADIATOR_ATTACK",
     },
   },
 ]
@@ -94,7 +94,7 @@ const example2 = [
     content: {
       text:
         "I use my agility to circle Titan, feinting high with my sword to draw his guard up. As he reacts, I sweep low, aiming to trip him on the loose sand, then thrust my gladius toward his exposed side.",
-      action: "VALIDATE_ROUND",
+      action: "GLADIATOR_ATTACK",
     },
   },
 ]
@@ -145,7 +145,7 @@ const example3 = [
     content: {
       text:
         "I exploit Titan's grappled state, using my speed to close the distance. I feint a slash to his left, then pivot to kick the broken chain toward his legs, aiming to entangle him further before thrusting my gladius into his exposed flank.",
-      action: "VALIDATE_ROUND",
+      action: "GLADIATOR_ATTACK",
     },
   },
 ]

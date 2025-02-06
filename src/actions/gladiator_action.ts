@@ -8,7 +8,7 @@ You need to respond with one action to attack one adversary, you need to analyze
 1. Your stats compared to you adversary 
 2. Your adversary will try to attack you too
 3. Try to guess the best way to attack your adversary
-4. Try to gues your enemy attack
+4. Try to guess your enemy attack
 5. Consider arena hazards and visibility
 6. Consider equipment
 

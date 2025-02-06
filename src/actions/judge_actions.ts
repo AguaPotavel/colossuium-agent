@@ -41,8 +41,9 @@ Given the recent messages, extract the following information about the requested
 - fighter1 stats
 - Fighter2 stats  
 - fighter1 and fighter2 intented actions
+- what happened previously
 
-with this current data and their stats and planned actions, define a result action and define their new STATS BASED ON NARRATIVE RESULT
+with this current data and their stats and planned actions and last action on arena, define a result action with the best possible outcome and define their new STATS BASED ON NARRATIVE RESULT
 
 Respond with a JSON markdown block containing only the extracted values.
 `
