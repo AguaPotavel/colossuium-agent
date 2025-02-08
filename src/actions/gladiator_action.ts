@@ -76,10 +76,12 @@ const gladiator_attack: Action = {
 
     elizaLogger.info("Action Content:", result.object);
 
+    runtime.databaseAdapter.removeAllMemories(message.roomId, "memories");
+
     callback({
       text: result.object as string,
     })
-    //runtime.databaseAdapter.removeAllMemories(message.roomId, "memories");
+
   },
   suppressInitialMessage: true,
   examples: [

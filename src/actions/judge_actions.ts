@@ -105,6 +105,8 @@ const judge_validate_action: Action = {
       state,
       template: responseTemplate,
     });
+    
+    console.log(roundContext, "roundContext")
 
     const result = await generateObject({
       runtime,
@@ -117,6 +119,8 @@ const judge_validate_action: Action = {
     console.log("Generated content:", result.toJsonResponse());
 
     elizaLogger.info("Round content:", result.object);
+
+    runtime.databaseAdapter.removeAllMemories(message.roomId, "memories");
 
     callback({
       text: result.object as string,
