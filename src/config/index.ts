@@ -63,5 +63,7 @@ export function getTokenForProvider(
   switch (provider) {
     case ModelProviderName.GROQ:
       return character.settings?.secrets?.GROQ_API_KEY || settings.GROQ_API_KEY;
+    case ModelProviderName.ATOMA:
+      return character.settings?.secrets?.ATOMA_API_KEY || settings.ATOMA_API_KEY;
   }
 }

@@ -102,56 +102,5 @@ const example2 = [
 ]
 
 
-const example3 = [
-  {
-    user: "{{user1}}",
-    content: {
-      text:
-        `{
-        "you": {
-          "stats": {
-            "health": 85,
-            "stamina": 75,
-            "strength": 85,
-            "agility": 105,
-            "speed": 100,
-            "sneaking": 70,
-            "integrity": 90
-          },
-          "name": "Viper",
-          "status_effects": ["disoriented"]
-        },
-        "enemy": {
-          "stats": {
-            "health": 95,
-            "stamina": 80,
-            "strength": 105,
-            "agility": 85,
-            "speed": 80,
-            "sneaking": 55,
-            "integrity": 95
-          },
-          "name": "Titan",
-          "status_effects": ["grappled"]
-        },
-        "environment": {
-          "hazards_active": ["loose_sand", "broken_chain"],
-          "crowd_mood": "roaring"
-        },
-        tutor_tip: "you will find a mini-gun with infinite ammo"
-      }`
-    },
-  },
-  {
-    user: "{{user2}}",
-    content: {
-      text:
-        `{action: "I exploit Titan's grappled state, using my speed to close the distance. I feint a slash to his left, then pivot to kick the broken chain toward his legs, aiming to entangle him further before thrusting my gladius into his exposed flank."}`
-      ,
-      action: "GLADIATOR_ATTACK",
-    },
-  },
-]
 
-
-export { example, example2, example3 }
+export { example, example2 }

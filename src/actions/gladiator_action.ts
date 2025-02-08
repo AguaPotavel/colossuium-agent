@@ -1,6 +1,6 @@
 import { Action, IAgentRuntime, Memory, Content, generateObject, elizaLogger, State, composeContext, ModelClass, HandlerCallback } from "@elizaos/core";
 import { z } from "zod";
-import { example, example2, example3 } from "./examples/gladiator_examples.ts"
+import { example, example2 } from "./examples/gladiator_examples.ts"
 
 const responseTemplate = `
 You need to respond with one action to attack one adversary, you need to analyze this points to define the best way to attack the adversary.
@@ -76,7 +76,6 @@ const gladiator_attack: Action = {
   examples: [
     example,
     example2,
-    example3
   ]
 };
 
