@@ -1,9 +1,10 @@
 {
     "name": "Gladiator",
     "clients": ["direct"],
-    "modelProvider": "atoma",
+    "modelProvider": "groq",
     "settings": {
-        "secrets": {},
+        "secrets": {
+        }, 
         "voice": {
             "model": "en_US-male-medium"
         }

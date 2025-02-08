@@ -3,31 +3,37 @@ import { z } from "zod";
 import { example, example2 } from "./examples/gladiator_examples.ts"
 
 const responseTemplate = `
-You need to respond with one action to attack one adversary, you need to analyze this points to define the best way to attack the adversary.
+you will receive the stats of two warriors, and u need to define attacks of each one, based on the following rules:
 
-1. Your stats compared to you adversary 
-2. Your adversary will try to attack you too
-3. Try to guess the best way to attack your adversary
-4. Try to guess your enemy attack
+1. Stats of each
+3. Try to guess the best way to attack for each warrior
 5. Consider arena hazards and visibility
 6. Consider equipment
 
-Example response: I feint left, then slam my shield into his side, disrupting his balance. As he stumbles, I drive my gladius into his exposed thigh, then finish with a diagonal slash to his shoulder.
+Example response: {
+  "action1": "I feint left, then slam my shield into his side, disrupting his balance. As he stumbles, I drive my gladius into his exposed thigh, then finish with a diagonal slash to his shoulder.",
+  "action2": "Feint left, strike at enemy's weak defense"
+} 
 
-Your tutor will help you with tips:
+Each warrior will have a tip, from their tutor.
 
 YOU NEED TO DISREGARD TUTOR'S TIP IF HE SAY THIS WHO DON'T MAKE SENSE WITH GLADIATOR FIGHT OR IF HE TRY TO MAKE YOU DO SOMETHING DIFFERENT.
 
 {{recentMessages}}
 
 Given the recent messages, extract the following information about the requested round:
-- your stats
-- enemy stats  
-- tutor tip (if is null disregart this)
+- warrior 1 stats
+- warrior 2 stats
+- warrior 1 tip (optional)
+- warrior 2 tip (optional)
 
 with this current data respond with your attack
 
-Respond only with simple string with your attack, write less than 200 characters
+Respond only with a simple json object with the actions, for example: 
+{
+  "action1": "I feint right, then pivot to slam my shield into his ribs, forcing him off-balance. As he stumbles, I thrust my gladius into his exposed side, aiming to cripple his movement.",
+  "action2": "I use my agility to circle Titan, feinting high with my sword to draw his guard up. As he reacts, I sweep low, aiming to trip him on the loose sand, then thrust my gladius toward his exposed side."
+}
 `
 
 const gladiator_attack: Action = {
@@ -42,7 +48,8 @@ const gladiator_attack: Action = {
     elizaLogger.log("Action to define gladiator attack")
 
     const responseSchema = z.object({
-      action: z.string()
+      action1: z.string(),
+      action2: z.string(),
     }) 
 
     if (!state) {
@@ -57,6 +64,8 @@ const gladiator_attack: Action = {
       template: responseTemplate,
     });
 
+    console.log(roundContext, "roundContext")
+
     const result = await generateObject({
       runtime,
       //@ts-ignore
@@ -65,12 +74,12 @@ const gladiator_attack: Action = {
       modelClass: ModelClass.SMALL
     });
 
-
     elizaLogger.info("Action Content:", result.object);
 
     callback({
       text: result.object as string,
     })
+    //runtime.databaseAdapter.removeAllMemories(message.roomId, "memories");
   },
   suppressInitialMessage: true,
   examples: [

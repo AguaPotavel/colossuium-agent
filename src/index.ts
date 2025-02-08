@@ -71,9 +71,7 @@ export function createAgent(
     evaluators: [],
     character,
     plugins: [
-      bootstrapPlugin,
       nodePlugin,
-      character.settings?.secrets?.WALLET_PUBLIC_KEY ? solanaPlugin : null,
     ].filter(Boolean),
     providers: [],
     actions: [getActionsByAgent(character)].flat(),

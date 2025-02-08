@@ -4,7 +4,7 @@ const example = [
     content: {
       text:
         `{
-              you: {
+              gladiator_1: {
                 stats: {
                     health: 100,
                     stamina: 100,
@@ -21,7 +21,7 @@ const example = [
                "hazards_active": [],
                "crowd_mood": "frenzied"
              },
-             enemy: {
+             gladiator_2: {
                 stats: {
                     health: 100,
                     stamina: 100,
@@ -34,7 +34,8 @@ const example = [
                 "status_effects": [],
                 "name": "Spartacus"
              },
-             tutor_tip: "try to attack your enemy with your sword fast"
+             tutor_tip_1: "try to attack your enemy with your sword fast",
+             tutor_tip_2: null
          }`
     },
   },
@@ -42,7 +43,10 @@ const example = [
     user: "{{user2}}",
     content: {
       text:
-        '{action: "I feint right, then pivot to slam my shield into his ribs, forcing him off-balance. As he stumbles, I thrust my gladius into his exposed side, aiming to cripple his movement."}'
+        `{
+"action1": "I feint left, then pivot sharply to slam my shield edge into Spartacus's ribs, leveraging my full strength to break his stance. As he recoils, I unleash a rapid flurry of gladius strikes - first a deep thrust toward his thigh, then a rising slash across his shoulder, using the crowd's frenzy to fuel my aggression.",
+"action2": "I circle like a panther, suddenly feigning a high overhead chop with my sword. When Maximus raises his shield, I drop and sweep my gladius through the sand, aiming to hook his ankle and destabilize him, following with a vicious thrust toward his kidney region."
+}`
       ,
       action: "GLADIATOR_ATTACK",
     },
@@ -56,7 +60,7 @@ const example2 = [
     content: {
       text:
         `{
-        "you": {
+        "gladiator_1": {
           "stats": {
             "health": 100,
             "stamina": 90,
@@ -69,7 +73,7 @@ const example2 = [
           "name": "Viper",
           "status_effects": []
         },
-        "enemy": {
+        "gladiator_2": {
           "stats": {
             "health": 100,
             "stamina": 95,
@@ -86,7 +90,8 @@ const example2 = [
           "hazards_active": ["loose_sand"],
           "crowd_mood": "anticipatory"
          },
-        tutor_tip: "try to attack your enemy with your sword fast"
+        tutor_tip_1: "try to attack your enemy with your sword fast"
+        tutor_tip_2: "try to attack your enemy with your sword fast"
       }`
     },
   },
@@ -94,7 +99,10 @@ const example2 = [
     user: "{{user2}}",
     content: {
       text:
-        '{action: "I use my agility to circle Titan, feinting high with my sword to draw his guard up. As he reacts, I sweep low, aiming to trip him on the loose sand, then thrust my gladius toward his exposed side."}'
+        `{
+"action1": "I explode into motion, feinting high with a lightning sword jab to draw Titan's guard. Mid-lunge, I pivot and kick a wave of loose sand at his face. As he flinches, I slash diagonally across his lead leg's hamstring, using my agility to dance back before he can counter.",
+"action2": "I root myself against the shifting sand, shield held like a wall. When Viper's blade skids off my shield boss, I torque my whole body into a devastating overhead chop meant to split his shield - then reverse momentum into a brutal upward shield uppercut aimed at his jaw."
+}`
       ,
       action: "GLADIATOR_ATTACK",
     },

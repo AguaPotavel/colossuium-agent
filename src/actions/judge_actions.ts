@@ -67,9 +67,9 @@ const judge_validate_action: Action = {
           stamina: z.coerce.string(),
           strength: z.coerce.string(),
           agility: z.coerce.string(),
-          speed: z.coerce.string(),
+          wisdom: z.coerce.string(),
           sneaking: z.coerce.string(),
-          integrity: z.coerce.string()
+          dexterity: z.coerce.string()
         }),
         status_effects: z.array(z.string()),
         name: z.string()
@@ -80,9 +80,9 @@ const judge_validate_action: Action = {
           stamina: z.coerce.string(),
           strength: z.coerce.string(),
           agility: z.coerce.string(),
-          speed: z.coerce.string(),
+          wisdom: z.coerce.string(),
           sneaking: z.coerce.string(),
-          integrity: z.coerce.string()
+          dexterity: z.coerce.string()
         }),
         status_effects: z.array(z.string()),
         name: z.string()
