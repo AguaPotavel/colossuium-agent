@@ -41,7 +41,9 @@ const gladiator_attack: Action = {
   handler: async (runtime: IAgentRuntime, message: Memory, state: State, _options: { [key: string]: unknown }, callback?: HandlerCallback) => {
     elizaLogger.log("Action to define gladiator attack")
 
-    const responseSchema = z.string() 
+    const responseSchema = z.object({
+      action: z.string()
+    }) 
 
     if (!state) {
       // Initialize or update state
