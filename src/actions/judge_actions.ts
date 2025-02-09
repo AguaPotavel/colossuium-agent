@@ -94,15 +94,24 @@ const judge_validate_action: Action = {
       narrative: z.string()
     })
 
-    if (!state) {
-      // Initialize or update state
-      state = (await runtime.composeState(message)) as State;
-    } else {
-      state = await runtime.updateRecentMessageState(state);
+    elizaLogger.log(message)
+
+    const timestamp = new Date()
+
+    message.roomId = `${"gladiator"}-${timestamp.getTime().toString()}-${"fight"}-${"round"}-${"1"}`
+
+    state = (await runtime.composeState(message)) as State;
+
+    const newState: State = {
+      ...state,
+      recentMessages: "",
+      recentMessagesData: [message],
+      recentInteractionsData: [],
+      recentInteractions: "",
     }
 
     const roundContext = composeContext({
-      state,
+      state: newState,
       template: responseTemplate,
     });
     
@@ -119,8 +128,6 @@ const judge_validate_action: Action = {
     console.log("Generated content:", result.toJsonResponse());
 
     elizaLogger.info("Round content:", result.object);
-
-    runtime.databaseAdapter.removeAllMemories(message.roomId, "memories");
 
     callback({
       text: result.object as string,
