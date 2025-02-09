@@ -51,6 +51,8 @@ const gladiator_attack: Action = {
 
     console.log(message)
 
+    let retries = 3;
+
     const responseSchema = z.object({
       action1: z.string(),
       action2: z.string(),
@@ -58,6 +60,7 @@ const gladiator_attack: Action = {
 
     const timestamp = new Date()
 
+    do {
     const completion = await getCompletion(
       message.content.text,
       "meta-llama/Llama-3.3-70B-Instruct",
@@ -65,43 +68,30 @@ const gladiator_attack: Action = {
       runtime.getSetting("ATOMA_API_KEY")
     )
 
-    if(completion){
+    if (completion) {
       const message = completion.choices[0].message;
-      console.log(message)
+      try {
+        const text = JSON.parse(message.content)
+        const valid = responseSchema.safeParse(text)
+
+        if (!valid.success) {
+          throw new Error("Could not parse data")
+        }
+
+        console.log(text)
+
+        callback({
+          text: JSON.stringify(text),
+        })
+
+        retries = 0
+
+      } catch (e) {
+        retries -= 1
+        elizaLogger.error(e, "Could not parse data")
+      }
     }
-
-    message.roomId = `${"gladiator"}-${timestamp.getTime().toString()}-${"fight"}-${"round"}-${"1"}`
-
-    state = (await runtime.composeState(message)) as State;
-
-    const newState: State = {
-      ...state,
-      recentMessages: "",
-      recentMessagesData: [message],
-      recentInteractionsData: [],
-      recentInteractions: "",
-    }
-
-    const roundContext = composeContext({
-      state: newState,
-      template: responseTemplate,
-    });
-
-    elizaLogger.log(message, "message")
-
-    const result = await generateObject({
-      runtime,
-      //@ts-ignore
-      schema: responseSchema,
-      context: roundContext,
-      modelClass: ModelClass.SMALL
-    });
-
-    elizaLogger.info("Action Content:", result.object);
-
-    callback({
-      text: result.object as string,
-    })
+  } while (retries > 0)
 
   },
   suppressInitialMessage: true,

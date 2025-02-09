@@ -26,7 +26,6 @@ import { initializeDatabase } from "./database/index.ts";
 
 import { judge_validate_action } from "./actions/judge_actions.ts";
 import { gladiator_attack } from "./actions/gladiator_action.ts";
-import { AtomaProvider } from "./providers/atoma.ts";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);

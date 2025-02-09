@@ -1,6 +1,7 @@
 import { Action, IAgentRuntime, Memory, Content, generateObject, elizaLogger, State, composeContext, ModelClass, HandlerCallback } from "@elizaos/core";
 import { z } from "zod";
 import { example, example2, example3, example4, example5 } from "./examples/judge_examples.ts";
+import { getCompletion } from "../services/atoma.ts";
 
 const responseTemplate = `
 Analyze the combatants' CURRENT CONDITION to determine:
@@ -96,42 +97,43 @@ const judge_validate_action: Action = {
 
     elizaLogger.log(message)
 
+    let retries = 3;
+
     const timestamp = new Date()
 
-    message.roomId = `${"gladiator"}-${timestamp.getTime().toString()}-${"fight"}-${"round"}-${"1"}`
+    do {
 
-    state = (await runtime.composeState(message)) as State;
+      const completion = await getCompletion(
+        message.content.text,
+        "meta-llama/Llama-3.3-70B-Instruct",
+        responseTemplate,
+        runtime.getSetting("ATOMA_API_KEY")
+      )
 
-    const newState: State = {
-      ...state,
-      recentMessages: "",
-      recentMessagesData: [message],
-      recentInteractionsData: [],
-      recentInteractions: "",
-    }
+      if (completion) {
+        const message = completion.choices[0].message;
+        try {
+          const text = JSON.parse(message.content)
+          const valid = responseSchema.safeParse(text)
 
-    const roundContext = composeContext({
-      state: newState,
-      template: responseTemplate,
-    });
-    
-    console.log(roundContext, "roundContext")
+          if (!valid.success) {
+            throw new Error("Could not parse data")
+          }
 
-    const result = await generateObject({
-      runtime,
-      //@ts-ignore
-      schema: responseSchema,
-      context: roundContext,
-      modelClass: ModelClass.LARGE
-    });
+          console.log(text)
 
-    console.log("Generated content:", result.toJsonResponse());
+          callback({
+            text: JSON.stringify(text),
+          })
 
-    elizaLogger.info("Round content:", result.object);
+          retries = 0
 
-    callback({
-      text: result.object as string,
-    })
+        } catch (e) {
+          retries -= 1
+          elizaLogger.error(e, "Could not parse data")
+        }
+      }
+    } while (retries > 0)
   },
   suppressInitialMessage: true,
   examples: [
