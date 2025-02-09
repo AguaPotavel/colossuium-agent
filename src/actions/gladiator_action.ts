@@ -1,6 +1,8 @@
 import { Action, IAgentRuntime, Memory, Content, generateObject, elizaLogger, State, composeContext, ModelClass, HandlerCallback } from "@elizaos/core";
 import { z } from "zod";
 import { example, example2 } from "./examples/gladiator_examples.ts"
+import { AtomaSDK } from "atoma-sdk";
+import { getCompletion } from "../services/atoma.ts";
 
 const responseTemplate = `
 you will receive the stats of two warriors, and u need to define attacks of each one, based on the following rules:
@@ -55,6 +57,18 @@ const gladiator_attack: Action = {
     })
 
     const timestamp = new Date()
+
+    const completion = await getCompletion(
+      message.content.text,
+      "meta-llama/Llama-3.3-70B-Instruct",
+      responseTemplate,
+      runtime.getSetting("ATOMA_API_KEY")
+    )
+
+    if(completion){
+      const message = completion.choices[0].message;
+      console.log(message)
+    }
 
     message.roomId = `${"gladiator"}-${timestamp.getTime().toString()}-${"fight"}-${"round"}-${"1"}`
 
