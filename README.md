@@ -1,90 +1,40 @@
-# Eliza
 
-## Edit the character files
+# Colossuim Agent
 
-Open `src/character.ts` to modify the default character. Uncomment and edit.
+Colossuium is a high-stakes NFT battle game on the Sui Network, where players mint gladiator NFTs and compete in PvP and AI-driven battles powered by Atoma Network and ElizaOs. Winners earn Gladius tokens ($GLD), while defeated gladiators are burned. Players use $GLD to acquire NFT weapons, armor, and accessories, enhancing their warriors. With a player-driven economy and no supply cap on $GLD, the game ensures a dynamic and competitive marketplace where the strongest gladiators gain the most value.
+## Authors
 
-### Custom characters
+- [@Lucasczm](https://github.com/Lucasczm)
+- [@AguaPotavel](https://github.com/AguaPotavel)
+- [@Haller-x](https://github.com/Haller-x)
+- [@Piovezan1207](https://github.com/Piovezan1207)
 
-To load custom characters instead:
-- Use `pnpm start --characters="path/to/your/character.json"`
-- Multiple character files can be loaded simultaneously
 
-### Add clients
-```
-# in character.ts
-clients: [Clients.TWITTER, Clients.DISCORD],
 
-# in character.json
-clients: ["twitter", "discord"]
-```
+## Run Locally
 
-## Duplicate the .env.example template
+Clone the project
 
 ```bash
-cp .env.example .env
+  git clone https://github.com/AguaPotavel/colossuium-agent
 ```
 
-\* Fill out the .env file with your own values.
-
-### Add login credentials and keys to .env
-```
-DISCORD_APPLICATION_ID="discord-application-id"
-DISCORD_API_TOKEN="discord-api-token"
-...
-OPENROUTER_API_KEY="sk-xx-xx-xxx"
-...
-TWITTER_USERNAME="username"
-TWITTER_PASSWORD="password"
-TWITTER_EMAIL="your@email.com"
-```
-
-## Install dependencies and start your agent
+Go to the project directory
 
 ```bash
-pnpm i && pnpm start
-```
-Note: this requires node to be at least version 22 when you install packages and run the agent.
-
-## Run with Docker
-
-### Build and run Docker Compose (For x86_64 architecture)
-
-#### Edit the docker-compose.yaml file with your environment variables
-
-```yaml
-services:
-    eliza:
-        environment:
-            - OPENROUTER_API_KEY=blahdeeblahblahblah
+  cd colosium-agent
 ```
 
-#### Run the image
+Start the server
 
 ```bash
-docker compose up
+  npm run dev:all 
 ```
 
-### Build the image with Mac M-Series or aarch64
+Open http://localhost:3000 with your browser to see the result.
 
-Make sure docker is running.
 
-```bash
-# The --load flag ensures the built image is available locally
-docker buildx build --platform linux/amd64 -t eliza-starter:v1 --load .
-```
+## License
 
-#### Edit the docker-compose-image.yaml file with your environment variables
+[All rights reserved](LICENSE)
 
-```yaml
-services:
-    eliza:
-        environment:
-            - OPENROUTER_API_KEY=blahdeeblahblahblah
-```
-
-#### Run the image
-
-```bash
-docker compose -f docker-compose-image.yaml up
-```
